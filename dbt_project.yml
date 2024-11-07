@@ -37,6 +37,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   todaytix_theatre_data:
-    # Applies to all files under models/example/
-    models:
+    # Applies to all files under models/staging/
+    staging:
       +materialized: table

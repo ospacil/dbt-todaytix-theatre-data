@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: stg_show_availability
+    description: Cleaned up raw TodayTix API data on show availability
+    columns:
+      - name: show_id
+        description: The unique identifier of a show or product.
+        data_tests:
+          - not_null
