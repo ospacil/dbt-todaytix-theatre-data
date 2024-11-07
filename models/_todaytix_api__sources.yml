@@ -1,0 +1,34 @@
+version: 2
+
+sources:
+  - name: todaytix_api_raw
+    description: TodayTix API raw data
+    database: todaytix-theatre-data
+    schema: raw_todaytix_api
+    tables:
+      - name: show_availability
+        description: TodayTix API show availability raw data
+        columns:
+          - name: showId
+            description: The ID identifiying a single show (aka product).
+            data_tests:
+              - not_null
+          - name: performanceTime
+            description: The time of the performance
+            data_tests:
+              - not_null
+          - name: performanceType
+            description: The type - evening or matinee - of the performance
+            data_tests:
+              - not_null
+          - name: requestTime
+            description: The timestamp of when the TodayTix API was queried for the information
+            data_tests:
+              - not_null
+        freshness: 
+          warn_after:
+            count: 1
+            period: day
+        loaded_at_field: requestTime
+
+        
