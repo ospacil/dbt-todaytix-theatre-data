@@ -1,4 +1,18 @@
+WITH SHOW_METADATA
+  AS (
+    SELECT CAST(show_id AS STRING) AS show_id,
+           show_name,
+           starting_date,
+           closing_date,
+           CAST(venue_id AS STRING) AS venue_id,
+           venue_name
+      FROM {{ ref("show_metadata") }}
+  )
+
 SELECT showId AS show_id,
+       B.show_name,
+       B.starting_date,
+       B.closing_date,
        requestTime AS request_timestamp,
        DATE(requestTime) AS request_date,
        TIME(requestTime) AS request_time,
@@ -12,6 +26,10 @@ SELECT showId AS show_id,
        minPrice / 100 AS min_price,
        maxPrice / 100 AS max_price,
        currency,
-       discountAvailable AS discount_available
-  FROM {{ source("todaytix_api_raw", "show_availability") }}
+       discountAvailable AS discount_available,
+       B.venue_id,
+       B.venue_name
+  FROM {{ source("todaytix_api_raw", "show_availability") }} AS A
+  LEFT JOIN SHOW_METADATA AS B
+    ON A.showId = B.show_id
  ORDER BY request_timestamp, show_id, performance_timestamp

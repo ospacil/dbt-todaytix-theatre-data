@@ -1,0 +1,11 @@
+version: 2
+
+seeds:
+  - name: show_metadata
+    description: Table containing individual show information, e.g. name, starting date and closing date
+    columns:
+      - name: show_id
+        description: The unique identifier of a show or product.
+        data_tests:
+          - not_null
+          - unique
