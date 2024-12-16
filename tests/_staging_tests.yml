@@ -1,0 +1,5 @@
+version: 2
+
+data_tests:
+  - name: assert_single_request_date_entry_per_performance
+    description: For each unique performance of a show, we expect at most 1 information row per request date.
